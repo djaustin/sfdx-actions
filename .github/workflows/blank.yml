@@ -23,7 +23,4 @@ jobs:
       - name: EnvtUrl
         run: |
           sfdx force:org:display --verbose --json > orgDetails.json
-          cat orgDetails.json
-          jq '.result.instanceUrl' orgDetails.json | sed 's/^.//;s/.$//'
-          jq '.result.accessToken' orgDetails.json | sed 's/^.//;s/.$//'
         
