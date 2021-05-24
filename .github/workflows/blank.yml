@@ -21,14 +21,9 @@ jobs:
       - name: Salesforce SFDX CLI Action
         uses: sfdx-actions/setup-sfdx@v1
       - name: EnvtUrl
-        id: envtUrl
         run: |
           sfdx force:org:display --verbose --json > orgDetails.json
-          orgUrl=$(jq '.result.instanceUrl' orgDetails.json | sed 's/^.//;s/.$//')
-          accessToken=$(jq '.result.accessToken' orgDetails.json | sed 's/^.//;s/.$//')
-          frontDoor='/secur/frontdoor.jsp?sid='
-          echo "::set-output name=url_output::"$orgUrl$frontDoor$accessToken
-      - name: Print URL
-        run: | 
-          echo {{ steps.envtUrl.outputs.url_output }}
+          cat orgDetails.json
+          jq '.result.instanceUrl' orgDetails.json | sed 's/^.//;s/.$//'
+          jq '.result.accessToken' orgDetails.json | sed 's/^.//;s/.$//'
         
